@@ -2,7 +2,7 @@
 FROM node:20 AS builder
 WORKDIR /usr/app
 COPY ./src ./
-RUN npm ci --only=production
+RUN npm ci --omit=dev
 
 # Final Stage
 FROM node:20-slim
