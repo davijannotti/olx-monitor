@@ -65,7 +65,7 @@ class Ad {
         if (this.notify) {
             try {
                 const msg = 'New ad found!\n' + this.title + ' - R$' + this.price + '\n\n' + this.url
-                notifier.sendNotification(msg, this.id)
+                await notifier.sendNotification(msg, this.id)
             } catch (error) {
                 $logger.error('Could not send a notification')
             }
