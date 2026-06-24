@@ -1,4 +1,6 @@
 require('dotenv').config()
+const fs = require('fs')
+const path = require('path')
 
 let config = {}
 
@@ -18,8 +20,20 @@ config.telegramToken = process.env.TELEGRAM_TOKEN
 config.dbFile = '../data/ads.db'
 
 config.logger={
-    logFilePath: '../data/scrapper.log',
+    logFilePath: path.resolve(__dirname, '../data/scrapper.log'),
     timestampFormat:'YYYY-MM-DD HH:mm:ss'
+}
+
+// Programmatically create the directories for sqlite db and logger if they do not exist
+const dbPath = path.resolve(__dirname, config.dbFile)
+const dbDir = path.dirname(dbPath)
+if (!fs.existsSync(dbDir)) {
+    fs.mkdirSync(dbDir, { recursive: true })
+}
+
+const logDir = path.dirname(config.logger.logFilePath)
+if (!fs.existsSync(logDir)) {
+    fs.mkdirSync(logDir, { recursive: true })
 }
 
 module.exports = config
